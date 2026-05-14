@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerHub - Rural Electricity Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>⚡ PowerHub</h1>
+                <span class="tagline">Rural Electricity Management</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#consumers">Consumers</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#billing">Billing</a></li>
+                <li><a href="#status">Grid Status</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Smart Rural Electricity Management</h2>
+            <p>Real-time monitoring, efficient billing, and sustainable power distribution</p>
+            <button class="btn btn-primary" onclick="scrollToSection('dashboard')">Access Dashboard</button>
+        </div>
+        <div class="hero-visual">
+            <canvas id="heroChart"></canvas>
+        </div>
+    </section>
+
+    <!-- Live Dashboard Section -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <h2>Live Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Total Power Generated</h3>
+                        <span class="status-indicator active"></span>
+                    </div>
+                    <div class="metric-value" id="totalGenerated">2450</div>
+                    <div class="metric-unit">kWh</div>
+                    <div class="metric-chart">
+                        <canvas id="generationChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Current Load</h3>
+                        <span class="status-indicator active"></span>
+                    </div>
+                    <div class="metric-value" id="currentLoad">1850</div>
+                    <div class="metric-unit">kW</div>
+                    <div class="metric-chart">
+                        <canvas id="loadChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Grid Frequency</h3>
+                        <span class="status-indicator active"></span>
+                    </div>
+                    <div class="metric-value" id="frequency">50.2</div>
+                    <div class="metric-unit">Hz</div>
+                    <div class="metric-chart">
+                        <canvas id="frequencyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h3>Line Voltage</h3>
+                        <span class="status-indicator active"></span>
+                    </div>
+                    <div class="metric-value" id="voltage">230.5</div>
+                    <div class="metric-unit">V</div>
+                    <div class="metric-chart">
+                        <canvas id="voltageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Visualization -->
+            <div class="visualization-section">
+                <div class="viz-card large">
+                    <h3>Real-Time Power Distribution</h3>
+                    <canvas id="mainVisualization"></canvas>
+                </div>
+            </div>
+
+            <!-- Grid Health Status -->
+            <div class="health-section">
+                <div class="health-card">
+                    <h3>Grid Health Status</h3>
+                    <div class="health-grid">
+                        <div class="health-item">
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 85%"></div>
+                            </div>
+                            <span>System Stability</span>
+                            <strong>85%</strong>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 92%"></div>
+                            </div>
+                            <span>Transmission Efficiency</span>
+                            <strong>92%</strong>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 78%"></div>
+                            </div>
+                            <span>Infrastructure Health</span>
+                            <strong>78%</strong>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-bar">
+                                <div class="health-fill" style="width: 95%"></div>
+                            </div>
+                            <span>System Uptime</span>
+                            <strong>95%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consumer Management Section -->
+    <section id="consumers" class="consumers-section">
+        <div class="container">
+            <h2>Consumer Management</h2>
+            <div class="consumers-grid">
+                <div class="form-panel">
+                    <h3>Add New Consumer</h3>
+                    <form id="consumerForm">
+                        <input type="text" id="consumerName" placeholder="Consumer Name" required>
+                        <input type="text" id="consumerId" placeholder="Consumer ID" required>
+                        <input type="email" id="consumerEmail" placeholder="Email" required>
+                        <input type="text" id="village" placeholder="Village Name" required>
+                        <select id="consumerType" required>
+                            <option value="">Select Consumer Type</option>
+                            <option value="Domestic">Domestic</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Agricultural">Agricultural</option>
+                            <option value="Industrial">Industrial</option>
+                        </select>
+                        <input type="number" id="sanctionedLoad" placeholder="Sanctioned Load (kW)" required>
+                        <button type="submit" class="btn btn-primary">Register Consumer</button>
+                    </form>
+                </div>
+
+                <div class="list-panel">
+                    <h3>Registered Consumers</h3>
+                    <div id="consumersList" class="consumers-list">
+                        <!-- Consumers will be dynamically added -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consumer Statistics -->
+            <div class="consumer-stats">
+                <div class="stat-box">
+                    <h4>Total Consumers</h4>
+                    <p class="big-number" id="totalConsumers">0</p>
+                </div>
+                <div class="stat-box">
+                    <h4>Domestic</h4>
+                    <p class="big-number" id="domesticCount">0</p>
+                </div>
+                <div class="stat-box">
+                    <h4>Commercial</h4>
+                    <p class="big-number" id="commercialCount">0</p>
+                </div>
+                <div class="stat-box">
+                    <h4>Agricultural</h4>
+                    <p class="big-number" id="agriculturalCount">0</p>
+                </div>
+                <div class="stat-box">
+                    <h4>Industrial</h4>
+                    <p class="big-number" id="industrialCount">0</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section id="analytics" class="analytics-section">
+        <div class="container">
+            <h2>Advanced Analytics</h2>
+            
+            <!-- Hourly Consumption -->
+            <div class="analytics-grid">
+                <div class="chart-card">
+                    <h3>24-Hour Power Consumption</h3>
+                    <canvas id="hourlyChart"></canvas>
+                </div>
+
+                <!-- Weekly Distribution -->
+                <div class="chart-card">
+                    <h3>Weekly Load Distribution</h3>
+                    <canvas id="weeklyChart"></canvas>
+                </div>
+
+                <!-- Consumer Breakdown -->
+                <div class="chart-card">
+                    <h3>Consumption by Category</h3>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+
+                <!-- Energy Sources -->
+                <div class="chart-card">
+                    <h3>Energy Sources Distribution</h3>
+                    <canvas id="sourcesChart"></canvas>
+                </div>
+
+                <!-- Peak Hours Analysis -->
+                <div class="chart-card">
+                    <h3>Peak Hours Analysis</h3>
+                    <canvas id="peakChart"></canvas>
+                </div>
+
+                <!-- Line Losses -->
+                <div class="chart-card">
+                    <h3>Transmission Line Losses</h3>
+                    <canvas id="lossesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Detailed Insights -->
+            <div class="insights-section">
+                <div class="insight-card">
+                    <h3>📊 System Insights</h3>
+                    <ul id="insightsList">
+                        <li>Peak load observed at 19:00 hours - 2.5 MW</li>
+                        <li>Average daily consumption: 2,200 kWh</li>
+                        <li>Transmission efficiency: High (>92%)</li>
+                        <li>Renewable energy contribution: 35%</li>
+                        <li>Consumer satisfaction rating: 4.2/5</li>
+                    </ul>
+                </div>
+
+                <div class="insight-card">
+                    <h3>⚠️ System Alerts</h3>
+                    <ul id="alertsList">
+                        <li><span class="alert-warning">WARNING:</span> High load detected on Feeder-3</li>
+                        <li><span class="alert-info">INFO:</span> Maintenance scheduled for Substation-B</li>
+                        <li><span class="alert-success">RESOLVED:</span> Voltage fluctuation issue fixed</li>
+                    </ul>
+                </div>
+
+                <div class="insight-card">
+                    <h3>📈 Performance Metrics</h3>
+                    <ul id="performanceList">
+                        <li><strong>System Efficiency:</strong> 91.5%</li>
+                        <li><strong>Power Factor:</strong> 0.95</li>
+                        <li><strong>Circuit Breaker Trips:</strong> 2 (Last 30 days)</li>
+                        <li><strong>Avg Response Time:</strong> 15 minutes</li>
+                        <li><strong>Customer Complaints:</strong> 3 (Last month)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Billing Section -->
+    <section id="billing" class="billing-section">
+        <div class="container">
+            <h2>Billing Management</h2>
+            
+            <div class="billing-grid">
+                <div class="bill-form">
+                    <h3>Generate Bill</h3>
+                    <form id="billForm">
+                        <select id="billConsumer" required>
+                            <option value="">Select Consumer</option>
+                        </select>
+                        <input type="month" id="billMonth" required>
+                        <input type="number" id="unitsConsumed" placeholder="Units Consumed (kWh)" required>
+                        <input type="number" id="unitRate" placeholder="Rate per Unit (₹)" value="8" required>
+                        <button type="submit" class="btn btn-primary">Generate Bill</button>
+                    </form>
+                </div>
+
+                <div class="bills-list">
+                    <h3>Recent Bills</h3>
+                    <div id="billsList" class="bills-container">
+                        <!-- Bills will be dynamically added -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Statistics -->
+            <div class="billing-stats">
+                <div class="billing-stat-card">
+                    <h4>Total Revenue</h4>
+                    <p class="big-number" id="totalRevenue">₹ 2,45,000</p>
+                    <small>Current Month</small>
+                </div>
+                <div class="billing-stat-card">
+                    <h4>Pending Bills</h4>
+                    <p class="big-number" id="pendingBills">12</p>
+                    <small>Amount: ₹ 45,600</small>
+                </div>
+                <div class="billing-stat-card">
+                    <h4>Collection Rate</h4>
+                    <p class="big-number" id="collectionRate">96%</p>
+                    <small>Very Good</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid Status Section -->
+    <section id="status" class="status-section">
+        <div class="container">
+            <h2>Grid Status & Monitoring</h2>
+            
+            <div class="substations-grid">
+                <div class="substation-card">
+                    <h3>Substation-A</h3>
+                    <div class="status-good">Operational</div>
+                    <div class="substation-details">
+                        <p><strong>Voltage:</strong> <span id="substationA-voltage">230V</span></p>
+                        <p><strong>Load:</strong> <span id="substationA-load">450 kW</span></p>
+                        <p><strong>Consumers:</strong> <span id="substationA-consumers">245</span></p>
+                        <div class="status-bar">
+                            <div class="status-bar-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="substation-card">
+                    <h3>Substation-B</h3>
+                    <div class="status-good">Operational</div>
+                    <div class="substation-details">
+                        <p><strong>Voltage:</strong> <span id="substationB-voltage">230V</span></p>
+                        <p><strong>Load:</strong> <span id="substationB-load">520 kW</span></p>
+                        <p><strong>Consumers:</strong> <span id="substationB-consumers">180</span></p>
+                        <div class="status-bar">
+                            <div class="status-bar-fill" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="substation-card">
+                    <h3>Substation-C</h3>
+                    <div class="status-good">Operational</div>
+                    <div class="substation-details">
+                        <p><strong>Voltage:</strong> <span id="substationC-voltage">230V</span></p>
+                        <p><strong>Load:</strong> <span id="substationC-load">380 kW</span></p>
+                        <p><strong>Consumers:</strong> <span id="substationC-consumers">175</span></p>
+                        <div class="status-bar">
+                            <div class="status-bar-fill" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="substation-card">
+                    <h3>Substation-D</h3>
+                    <div class="status-warning">Caution</div>
+                    <div class="substation-details">
+                        <p><strong>Voltage:</strong> <span id="substationD-voltage">225V</span></p>
+                        <p><strong>Load:</strong> <span id="substationD-load">610 kW</span></p>
+                        <p><strong>Consumers:</strong> <span id="substationD-consumers">220</span></p>
+                        <div class="status-bar warning">
+                            <div class="status-bar-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feeder Status -->
+            <div class="feeder-status">
+                <h3>Feeder Status</h3>
+                <div class="feeder-grid">
+                    <div class="feeder-item">
+                        <div class="feeder-indicator good"></div>
+                        <span>Feeder-1: Normal</span>
+                    </div>
+                    <div class="feeder-item">
+                        <div class="feeder-indicator good"></div>
+                        <span>Feeder-2: Normal</span>
+                    </div>
+                    <div class="feeder-item">
+                        <div class="feeder-indicator warning"></div>
+                        <span>Feeder-3: High Load</span>
+                    </div>
+                    <div class="feeder-item">
+                        <div class="feeder-indicator good"></div>
+                        <span>Feeder-4: Normal</span>
+                    </div>
+                    <div class="feeder-item">
+                        <div class="feeder-indicator good"></div>
+                        <span>Feeder-5: Normal</span>
+                    </div>
+                    <div class="feeder-item">
+                        <div class="feeder-indicator good"></div>
+                        <span>Feeder-6: Normal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Map -->
+            <div class="system-map">
+                <h3>Distribution Network Map</h3>
+                <canvas id="networkMap"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Contact & Support</h2>
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h3>Send Message</h3>
+                    <form id="contactForm">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <select required>
+                            <option value="">Select Issue Type</option>
+                            <option value="complaint">Complaint</option>
+                            <option value="inquiry">Inquiry</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="feedback">Feedback</option>
+                        </select>
+                        <textarea placeholder="Message" rows="5" required></textarea>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="info-item">
+                        <h4>📍 Main Office</h4>
+                        <p>District Power Distribution Center<br>Rural Area, State</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>📞 24/7 Helpline</h4>
+                        <p>1800-POWER-01<br>+91-XXXX-XXXX-XX</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>✉️ Email Support</h4>
+                        <p>support@powerhub.gov.in<br>complaints@powerhub.gov.in</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>⏰ Working Hours</h4>
+                        <p>Mon-Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 2:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 PowerHub - Rural Electricity Management System. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
